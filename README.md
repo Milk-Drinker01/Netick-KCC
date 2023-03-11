@@ -10,5 +10,5 @@ Features :
  - Crouch
  
  To Do:
- - Make it work with Sandboxing
+ - Make it work with Sandboxing (use sandbox.physics)
  - Create system for networked moving platforms
