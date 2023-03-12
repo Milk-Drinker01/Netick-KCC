@@ -79,8 +79,8 @@ public class KccPlayer : NetworkBehaviour
     {
         if (IsInputSource)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
             AdditionalStateInfoBuffer = new AdditionalKCCNetworkInfo[Sandbox.Config.MaxPredicatedTicks];
             for (int i = 0; i < AdditionalStateInfoBuffer.Length; i++)
                 AdditionalStateInfoBuffer[i] = new AdditionalKCCNetworkInfo();
@@ -214,8 +214,11 @@ public class KccPlayer : NetworkBehaviour
         kccNetState.InnerGroundNormal = state.GroundingStatus.InnerGroundNormal;
         kccNetState.OuterGroundNormal = state.GroundingStatus.OuterGroundNormal;
 
-        AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbody = state.AttachedRigidbody;
-        AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbodyVelocity = state.AttachedRigidbodyVelocity;
+        if (IsInputSource)
+        {
+            AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbody = state.AttachedRigidbody;
+            AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbodyVelocity = state.AttachedRigidbodyVelocity;
+        }
 
         return kccNetState;
     }
@@ -242,8 +245,12 @@ public class KccPlayer : NetworkBehaviour
             InnerGroundNormal = kccNetState.InnerGroundNormal,
             OuterGroundNormal = kccNetState.OuterGroundNormal
         };
-        kccState.AttachedRigidbody = AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbody;
-        kccState.AttachedRigidbodyVelocity = AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbodyVelocity;
+
+        if (IsInputSource)
+        {
+            kccState.AttachedRigidbody = AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbody;
+            kccState.AttachedRigidbodyVelocity = AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length].AttachedRigidbodyVelocity;
+        }
 
         return kccState;
     }

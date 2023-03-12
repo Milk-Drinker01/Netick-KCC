@@ -18,7 +18,7 @@ MonoBehaviour:
   WeaverErrors: []
   _Prefabs:
   - Obj: {fileID: 373837742050038044, guid: 2f737f8d46a0f704b87d6662fb5b8010, type: 3}
-    InstanceId: 23804
+    InstanceId: 23796
     Name: KCC_PLAYER
     FileName: Assets/Netick-KCC/KCC_PLAYER.prefab
     GO: {fileID: 5651286471523823301, guid: 2f737f8d46a0f704b87d6662fb5b8010, type: 3}
