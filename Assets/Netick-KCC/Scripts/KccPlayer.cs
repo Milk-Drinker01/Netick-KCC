@@ -59,13 +59,13 @@ public class KccPlayer : NetworkBehaviour
     [Networked] [Smooth] public Vector2 YawPitch { get; set; }
     [Networked] public bool Crouching { get; set; }
 
-    private KinematicCharacterMotor _motor;
+    private KinematicCharacterMotorNetick _motor;
     private Locomotion _locomotion;
     private bool _crouching;
 
     private void Awake()
     {
-        _motor = GetComponent<KinematicCharacterMotor>();
+        _motor = GetComponent<KinematicCharacterMotorNetick>();
         _locomotion = GetComponent<Locomotion>();
     }
     void Start()
@@ -77,6 +77,7 @@ public class KccPlayer : NetworkBehaviour
 
     public override void NetworkStart()
     {
+        _motor._PhysicsScene = Sandbox.Physics;
         if (IsInputSource)
         {
             //Cursor.lockState = CursorLockMode.Locked;

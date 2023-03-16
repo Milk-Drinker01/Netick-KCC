@@ -293,12 +293,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5654542043148214999}
-  - component: {fileID: 5732330311556829027}
   - component: {fileID: 373837742050038044}
   - component: {fileID: 5651286471523823299}
   - component: {fileID: 5651286471523823300}
-  - component: {fileID: 5760646223252058551}
+  - component: {fileID: 3263674614669310556}
   - component: {fileID: 2005175156869349241}
+  - component: {fileID: 2475450197863541907}
   m_Layer: 9
   m_Name: KCC_PLAYER
   m_TagString: Untagged
@@ -322,20 +322,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &5732330311556829027
-CapsuleCollider:
-  m_ObjectHideFlags: 8
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651286471523823301}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.6
-  m_Height: 1.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &373837742050038044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneId: -1
   GlobalObjectIdHash: 2067060090
-  _PrefabId: 0
+  _PrefabId: 1
   Persistent: 0
   PrefabRoot: {fileID: 0}
   Children: []
@@ -388,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff9e6306c113134e80b77b8c655aea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Motor: {fileID: 5760646223252058551}
+  Motor: {fileID: 3263674614669310556}
   WalkingSpeed: 2.5
   SprintMultiplier: 2
   AccelerationRate: 15
@@ -405,7 +391,7 @@ MonoBehaviour:
   CapsuleStandHeight: 1.8
   CrouchedCapsuleHeight: 1
   _isCrouching: 0
---- !u!114 &5760646223252058551
+--- !u!114 &3263674614669310556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -414,11 +400,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5651286471523823301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d1bc5515e3ab954e80599c538834774, type: 3}
+  m_Script: {fileID: 11500000, guid: 81865a9f3a053884898b7003ef8a6486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Capsule: {fileID: 5732330311556829027}
-  CapsuleRadius: 0.6
+  Capsule: {fileID: 2475450197863541907}
+  CapsuleRadius: 0.5
   CapsuleHeight: 1.8
   CapsuleYOffset: 0.9
   CapsulePhysicsMaterial: {fileID: 0}
@@ -430,10 +416,10 @@ MonoBehaviour:
   DiscreteCollisionEvents: 0
   StepHandling: 1
   MaxStepHeight: 0.5
-  AllowSteppingWithoutStableGrounding: 1
+  AllowSteppingWithoutStableGrounding: 0
   MinRequiredStepDepth: 0.1
   LedgeAndDenivelationHandling: 1
-  MaxStableDistanceFromLedge: 0.35
+  MaxStableDistanceFromLedge: 0.5
   MaxVelocityForLedgeSnap: 0
   MaxStableDenivelationAngle: 180
   InteractiveRigidbodyHandling: 1
@@ -463,3 +449,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &2475450197863541907
+CapsuleCollider:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651286471523823301}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}

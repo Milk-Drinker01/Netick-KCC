@@ -22,7 +22,7 @@ public struct LocomotionInputs
 
 public class Locomotion : MonoBehaviour, ICharacterController
 {
-    public KinematicCharacterMotor Motor;
+    public KinematicCharacterMotorNetick Motor;
 
     [Header("Stable Movement")]
     public float WalkingSpeed = 2.5f;
