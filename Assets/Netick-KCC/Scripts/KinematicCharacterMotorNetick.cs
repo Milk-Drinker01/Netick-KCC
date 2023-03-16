@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace KinematicCharacterController
 {
-
     /// <summary>
     /// Component that manages character collisions and movement solving
     /// </summary>
