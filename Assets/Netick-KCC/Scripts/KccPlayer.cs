@@ -87,7 +87,7 @@ public class KccPlayer : NetworkBehaviour
                 AdditionalStateInfoBuffer[i] = new AdditionalKCCNetworkInfo();
         }
         else
-            GetComponentInChildren<Camera>().enabled = false;
+            GetComponentInChildren<Camera>().gameObject.SetActive(false);
     }
     public delegate void DestroyPlayer();
     public event DestroyPlayer OnPlayerDestroyed;
