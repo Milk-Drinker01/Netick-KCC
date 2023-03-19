@@ -180,9 +180,6 @@ public class KccPlayer : NetworkBehaviour
             Crouching = input.CouchInput;
 
             _locomotion.SetInputs(ref characterInputs);
-
-            Simulate();
-            Velocity = _motor.Velocity;
         }
 
         if (Sandbox.IsServer || IsInputSource)

@@ -336,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneId: -1
   GlobalObjectIdHash: 2067060090
-  _PrefabId: 1
+  _PrefabId: 6
   Persistent: 0
   PrefabRoot: {fileID: 0}
   Children: []
