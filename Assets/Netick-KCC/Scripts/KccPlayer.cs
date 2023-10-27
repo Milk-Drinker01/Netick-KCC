@@ -56,7 +56,8 @@ public class KccPlayer : NetworkBehaviour
     [Networked] [Smooth] public Vector3 Position { get; set; }
     //we exclude velocity from the state struct cause we might want smoothed velocity for animation purposes
     [Networked] [Smooth] public Vector3 Velocity { get; set; }
-    [Networked] [Smooth] public Vector2 YawPitch { get; set; }
+    [Networked] [Smooth(3)] public Vector2 YawPitch { get; set; }
+    Interpolator<Vector2> rotationInterp;
     [Networked] public bool Crouching { get; set; }
 
     private KinematicCharacterMotorNetick _motor;
@@ -68,6 +69,7 @@ public class KccPlayer : NetworkBehaviour
         _motor = GetComponent<KinematicCharacterMotorNetick>();
         _locomotion = GetComponent<Locomotion>();
     }
+
     void Start()
     {
         // We disable Settings.AutoSimulation + Settings.Interpolate of KinematicCharacterSystem to essentially handle the simulation ourself
@@ -77,6 +79,7 @@ public class KccPlayer : NetworkBehaviour
 
     public override void NetworkStart()
     {
+        rotationInterp = FindInterpolator<Vector2>(3);
         _motor._PhysicsScene = Sandbox.Physics;
         if (IsInputSource)
         {
@@ -96,15 +99,23 @@ public class KccPlayer : NetworkBehaviour
         OnPlayerDestroyed?.Invoke();
         Sandbox.Destroy(Object);
     }
+
     public override void NetworkRender()
     {
         //float alpha = Object.IsProxy ? Sandbox.RemoteInterpolation.Alpha : Sandbox.LocalInterpolation.Alpha;  //used for custom interp
         RenderTransform.position = Position;
-        RenderTransform.localRotation = Quaternion.Euler(0, YawPitch.x, 0);
+        RenderTransform.localRotation = Quaternion.Euler(0, LerpRotation(rotationInterp.From.x, rotationInterp.To.x, rotationInterp.Alpha), 0);
+        //RenderTransform.localRotation = Quaternion.Euler(0, YawPitch.x, 0);
         CameraTransform.localRotation = Quaternion.Euler(YawPitch.y, 0, 0);
         float height = Crouching ? _locomotion.CrouchedCapsuleHeight : _locomotion.CapsuleStandHeight;
         RenderTransform.localScale = new Vector3(1, height/2, 1);
     }
+
+    private float LerpRotation(float from, float to, float alpha)
+    {
+        return Mathf.LerpAngle(from, to, alpha);
+    }
+
     public override void NetworkUpdate()
     {
         if (!IsInputSource || !Sandbox.InputEnabled)
@@ -151,6 +162,7 @@ public class KccPlayer : NetworkBehaviour
             return;
         _locomotion.SetLocomotionState(AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length]);
     }
+
     public override void ApplyToBehaviour()
     {
         KCCState = KCCStateToNetickState(_motor.GetState());
@@ -159,6 +171,7 @@ public class KccPlayer : NetworkBehaviour
         //InfoBuffer[Sandbox.Tick.TickValue % InfoBuffer.Length] = _locomotion.GetLocomotionState();
         _locomotion.GetLocomotionState(ref AdditionalStateInfoBuffer[Sandbox.Tick.TickValue % AdditionalStateInfoBuffer.Length]);
     }
+
     public override void NetworkFixedUpdate()
     {
         if (FetchInput(out KccDemoInput input))
@@ -252,12 +265,14 @@ public class KccPlayer : NetworkBehaviour
 
         return kccState;
     }
+
     private Vector2 ClampAngles(Vector2 _yawPitch)
     {
         _yawPitch.x = ClampAngle(_yawPitch.x, -360, 360);
         _yawPitch.y = ClampAngle(_yawPitch.y, -90, 90);
         return _yawPitch;
     }
+
     private Vector2 ClampAngles(float yaw, float pitch)
     {
         return new Vector2(ClampAngle(yaw, -360, 360), ClampAngle(pitch, -90, 90));
@@ -265,9 +280,9 @@ public class KccPlayer : NetworkBehaviour
 
     private float ClampAngle(float angle, float min, float max)
     {
-        if (angle < -360F)
+        if (angle <= -360F)
             angle += 360F;
-        if (angle > 360F)
+        if (angle >= 360F)
             angle -= 360F;
         return Mathf.Clamp(angle, min, max);
     }
