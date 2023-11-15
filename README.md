@@ -1,6 +1,6 @@
 # Netick-KCC
  An implementation of Kinematic Character Controller with Netick Networking
-
+NOTE: THIS PROJECT IS FOR NETICK 1.0 - FOR NETICK 2.0, CHECK HERE: https://github.com/Milk-Drinker01/Netick2-KCC
 Using this project as a foundation, you will automatically have a highly customizable AAA Character Controller, and a AAA networking solution. 
 
 
